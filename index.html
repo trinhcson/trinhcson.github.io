@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title id="browser-title">Cson Là Tớ ^^ ><</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@700&display=swap');
+
+*{box-sizing:border-box}
+:root{--glass:rgba(15,15,15,.55);--line:rgba(255,255,255,.15);--white:#fff}
+body{
+ margin:0;min-height:100vh;color:var(--white);
+ font-family:"Trebuchet MS",Arial,sans-serif;
+ background:
+  linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.45)),
+  url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVrS3MEC2jiWo2GhkjN4hJiVd3KnHNMZ4gKeDd3hXZiWBwSsn3yiYl5G4&s=10") center/cover fixed no-repeat,
+  #080808;
+ overflow-x:hidden;
+ display:flex;justify-content:center;align-items:center;padding:30px 14px;
+}
+
+/* Màn hình chờ click để vào web */
+#enter-screen{
+ position:fixed;inset:0;z-index:99999;
+ background:rgba(0,0,0,0.9);backdrop-filter:blur(8px);
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+ cursor:pointer;transition:opacity 0.4s ease;
+}
+#enter-screen h1{
+ font-size:26px;font-weight:bold;color:#fff;margin:0 0 8px;
+ text-shadow:0 0 10px rgba(255,255,255,0.5);
+}
+#enter-screen p{
+ font-size:13px;color:#aaa;margin:0;letter-spacing:1px;
+}
+
+/* --- HIỆU ỨNG VỆT SÁNG CẦU VỒNG CHẠY VÒNG QUANH MÀN HÌNH --- */
+@property --angle {
+ syntax: '<angle>';
+ initial-value: 0deg;
+ inherits: false;
+}
+.rainbow-border{
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ z-index:9998;
+ padding:4px;
+ background:conic-gradient(
+  from var(--angle),
+  #ff0055 0deg,
+  #ff9900 22deg,
+  #ffee00 44deg,
+  #38ef7d 66deg,
+  #00ffff 88deg,
+  #ff00ff 110deg,
+  transparent 145deg,
+  transparent 360deg
+ );
+ -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+ -webkit-mask-composite: xor;
+ mask-composite: exclude;
+ filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.55));
+ animation: rotateRainbow 4.5s linear infinite;
+}
+@keyframes rotateRainbow{
+ to{ --angle: 360deg; }
+}
+
+main{position:relative;z-index:2;width:min(760px,100%)}
+
+.panel{
+ background:var(--glass);border:1px solid var(--line);border-radius:28px;
+ backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+ box-shadow:0 15px 45px rgba(0,0,0,.65);
+}
+
+/* Khung thông tin trên */
+.profile{padding:28px 30px 20px;text-align:left}
+
+/* --- VÒNG TRÒN QUANG PHỔ XOAY QUANH AVATAR --- */
+.avatar-container {
+ position: relative;
+ width: 165px;
+ height: 165px;
+ margin-bottom: 16px;
+}
+.avatar-container::before {
+ content: '';
+ position: absolute;
+ inset: -6px;
+ border-radius: 50%;
+ background: linear-gradient(45deg, #ff0055, #00ffff, #ff00ff, #38ef7d, #ff0055);
+ background-size: 400%;
+ z-index: 0;
+ animation: glowingBorder 4s linear infinite;
+ filter: blur(4px);
+ opacity: 0.85;
+}
+.avatar-container::after {
+ content: '';
+ position: absolute;
+ inset: -3px;
+ border-radius: 50%;
+ background: linear-gradient(120deg, #38ef7d, #11998e, #ff4757, #ffffff);
+ background-size: 300%;
+ z-index: 0;
+ animation: spinRing 6s linear infinite;
+}
+@keyframes glowingBorder {
+ 0% { background-position: 0% 50%; }
+ 50% { background-position: 100% 50%; }
+ 100% { background-position: 0% 50%; }
+}
+@keyframes spinRing {
+ 0% { transform: rotate(0deg); }
+ 100% { transform: rotate(360deg); }
+}
+
+.avatar{
+ position: relative;
+ z-index: 1;
+ width: 100%;
+ height: 100%;
+ border-radius: 50%;
+ background: #050505;
+ border: 3px solid rgba(255,255,255,0.9);
+ background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFrZNN_TE_PkIcHRkvci_YYlyLS2cp3umQJVBSfNhNg7nTvb1q');
+ background-size: cover; 
+ background-position: center;
+ box-shadow: 0 8px 25px rgba(0,0,0,0.8);
+}
+
+/* --- PHÔNG CHỮ ĐẶC BIỆT CHUẨN DISCORD NITRO & ÁNH SÁNG LƯỚT QUA --- */
+.name{
+ font-family: 'Fredoka', sans-serif;
+ font-size: 2rem;
+ font-weight: 700;
+ letter-spacing: 0.5px;
+ margin: 16px 0 8px;
+ line-height: 1.2;
+ position: relative;
+ text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+ background: linear-gradient(90deg, #fff 0%, #00ffff 30%, #ff00ff 70%, #fff 100%);
+ background-size: 200% auto;
+ color: transparent;
+ -webkit-background-clip: text;
+ background-clip: text;
+ animation: lightSweep 3.5s linear infinite;
+}
+@keyframes lightSweep {
+ 0% { background-position: 200% center; }
+ 100% { background-position: -200% center; }
+}
+
+.bio{font-weight:700;margin:0 0 16px;font-size:15px;color:#eee}
+
+/* Icon mạng xã hội chuẩn SVG */
+.socials{display:flex;gap:14px;margin-bottom:16px}
+.socials a{
+ width:40px;height:40px;display:grid;place-items:center;border-radius:50%;
+ background:rgba(255,255,255,0.15);color:#fff;text-decoration:none;
+ transition:transform .2s, background .2s;
+ border: 1px solid rgba(255,255,255,0.2);
+}
+.socials a:hover{transform:translateY(-2px);background:rgba(255,255,255,0.3)}
+.socials svg{width:20px;height:20px;fill:currentColor;}
+
+/* --- KHUNG DISCORD NẰM TRÊN --- */
+.discord{
+ border-radius:22px;background:rgba(0,0,0,.45);
+ border:1px solid rgba(255,255,255,.1);padding:14px 18px;
+ display:flex;align-items:center;gap:16px;margin-bottom:16px;
+}
+.discord-logo{
+ width:76px;height:76px;border-radius:50%;background:#000;border:1.5px solid rgba(255,255,255,.45);
+ background-image: url('https://cdn.upanhlaylink.com/i/RYCLgMFE.png');
+ background-size: cover; background-position: center;
+ flex:none;
+}
+.discord-info strong{font-size:17px;display:block;margin-bottom:4px}
+.status{font-size:12px;color:#bbb;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:#23a55a;display:inline-block}
+.profile-btn{
+ display:inline-block;background:#248e58;color:#fff;text-decoration:none;
+ border-radius:20px;padding:6px 16px;font-size:12px;font-weight:bold;transition:background .2s;
+}
+.profile-btn:hover{background:#2ba868}
+
+/* --- THANH THÔNG TIN NẰM DƯỚI KHUNG DISCORD --- */
+.counter-box{
+ display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+}
+.counter-badge{
+ display:flex;align-items:center;gap:8px;
+ background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+ padding:8px 16px;border-radius:20px;font-size:13px;font-weight:bold;color:#ddd;
+ user-select:none;
+}
+.counter-badge svg{width:16px;height:16px;fill:currentColor}
+.like-btn{
+ cursor:pointer;transition:all .2s;background:rgba(255,255,255,0.12);
+ border:1px solid rgba(255,255,255,0.25);
+}
+.like-btn:hover{background:rgba(255,71,87,0.2);border-color:rgba(255,71,87,0.45);color:#ff6b6b;transform:scale(1.05)}
+.like-btn:active{transform:scale(0.95)}
+.like-btn.liked{background:rgba(255,71,87,0.25);border-color:rgba(255,71,87,0.6);color:#ff6b6b}
+
+/* Khung phát nhạc bên dưới */
+.music{margin-top:16px;padding:20px 24px}
+.player-top{display:flex;align-items:center;gap:16px}
+.cover{
+ width:88px;height:88px;border-radius:16px;flex:none;
+ background:#111 url("https://cdn.upanhlaylink.com/i/tTmGrCdh.jpg") center/cover;
+ box-shadow:0 4px 15px rgba(0,0,0,.5);
+}
+.track{min-width:0;flex:1}
+.track-title{font-size:21px;font-weight:900;margin-bottom:14px}
+.controls{display:flex;align-items:center;gap:12px}
+.time{font-size:13px;font-weight:bold;white-space:nowrap;color:#ddd}
+.seek{height:6px;border-radius:9px;background:rgba(255,255,255,.35);flex:1;cursor:pointer;position:relative;overflow:visible}
+.seek-fill{height:100%;width:0%;background:#fff;border-radius:9px;position:relative}
+.seek-fill::after{
+ content:"";position:absolute;right:-6px;top:50%;transform:translateY(-50%);
+ width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:0 0 6px #000;
+}
+.control{border:0;background:transparent;color:#fff;cursor:pointer;padding:4px;display:grid;place-items:center;transition:transform .15s}
+.control:hover{transform:scale(1.1)}
+.play{
+ width:40px;height:40px;border-radius:50%;background:#fff;color:#111;
+ display:grid;place-items:center;flex:none;box-shadow:0 2px 10px rgba(0,0,0,.4);
+}
+.play svg{width:18px;height:18px;fill:currentColor}
+
+@media(max-width:560px){
+ .profile{padding:22px 20px 18px}
+ .avatar-container{width:135px;height:135px}
+ .name{font-size:1.7rem}
+ .cover{width:72px;height:72px}
+ .track-title{font-size:17px}
+ .controls{gap:8px}
+}
+</style>
+</head>
+<body oncontextmenu="return false;">
+
+<!-- Màn hình chờ click để vào web -->
+<div id="enter-screen">
+ <h1>Bấm Vào Màn Hình Để Vào Trong Nhé 🥰</h1>
+ <p>Developer By TranCaoSon </p>
+</div>
+
+<!-- Vệt sáng cầu vồng chạy vòng quanh màn hình -->
+<div class="rainbow-border"></div>
+
+<main>
+ <section class="panel profile">
+  <div class="avatar-container">
+   <div class="avatar"></div>
+  </div>
+  <h1 class="name">Trần Cao Sơn</h1>
+  <p class="bio">đẹp zai 2 lai ✦</p>
+  
+  <nav class="socials">
+   <a href="https://www.youtube.com/" target="_blank" rel="noopener" title="YouTube">
+    <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+   </a>
+   <a href="chuacolink" target="_blank" rel="noopener" title="Nhóm Messenger">
+    <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.088-2.242c1.09.302 2.246.464 3.44.464 6.627 0 12-4.974 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26 6.559-6.963 3.13 3.26 5.889-3.26-6.56 6.963z"/></svg>
+   </a>
+   <a href="https://discord.com/users/1573688586639909056" target="_blank" rel="noopener" title="Discord">
+    <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+   </a>
+  </nav>
+
+  <!-- Khung Discord DXC STORE nằm ở trên -->
+  <div class="discord">
+   <div class="discord-logo"></div>
+   <div class="discord-info">
+    <strong>DXC STORE</strong>
+    <div class="status">Sever Discord Của DXC STORE Mà Tôi Muốn Chia Sẻ </div>
+    <a class="profile-btn" href="https://discord.gg/r2VzVkSSAc" target="_blank" rel="noopener">View Profile</a>
+   </div>
+  </div>
+
+  <!-- Thanh thông tin: Lượt xem, Thả tim, Hà Nội nằm ở dưới -->
+  <div class="counter-box">
+   <div class="counter-badge" title="Tổng lượt xem">
+    <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+    <span id="view-count">...</span> Lượt xem
+   </div>
+   <div class="counter-badge like-btn" id="like-btn" title="Bấm vào để thả tim">
+    <svg viewBox="0 0 24 24" style="color:#ff4757;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    <span id="like-count">...</span> Thả tim
+   </div>
+   <div class="counter-badge" title="Vị trí">
+    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+    Hà Nội
+   </div>
+  </div>
+ </section>
+
+ <section class="panel music">
+  <div class="player-top">
+   <div class="cover"></div>
+   <div class="track">
+    <div class="track-title">Chờ Anh Chút Thôi...</div>
+    <div class="controls">
+     <span class="time" id="current">0:00</span>
+     <div class="seek" id="seek"><div class="seek-fill" id="fill"></div></div>
+     <span class="time" id="duration">--:--</span>
+     <button class="control" id="back" title="Lùi 10s">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg>
+     </button>
+     <button class="control play" id="toggle" title="Phát/Dừng">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+     </button>
+     <button class="control" id="forward" title="Tới 10s">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
+     </button>
+    </div>
+   </div>
+  </div>
+ </section>
+</main>
+
+<!-- Thẻ Audio HTML5 liên kết đến file nhac.m4a bạn vừa tải lên -->
+<audio id="audio-player" src="nhac.m4a" preload="auto" loop></audio>
+
+<script>
+// --- HIỆU ỨNG GÕ CHỮ TRÊN TIÊU ĐỀ TRÌNH DUYỆT ---
+const browserTitle = document.getElementById('browser-title');
+const textArray = ["Cson là tớ ><"];
+let textIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+let typingSpeed = 150;
+
+function typeEffect() {
+ const currentText = textArray[textIndex];
+ 
+ if (isDeleting) {
+  browserTitle.textContent = currentText.substring(0, charIndex - 1);
+  charIndex--;
+  typingSpeed = 70;
+ } else {
+  browserTitle.textContent = currentText.substring(0, charIndex + 1);
+  charIndex++;
+  typingSpeed = 150;
+ }
+
+ if (!isDeleting && charIndex === currentText.length) {
+  isDeleting = true;
+  typingSpeed = 2000;
+ } else if (isDeleting && charIndex === 0) {
+  isDeleting = false;
+  typingSpeed = 500;
+ }
+
+ setTimeout(typeEffect, typingSpeed);
+}
+setTimeout(typeEffect, 1000);
+
+// --- MÀN HÌNH CHÀO MỪNG & PHÁT NHẠC M4A ---
+const enterScreen = document.getElementById('enter-screen');
+const audio = document.getElementById('audio-player');
+const toggle = document.getElementById('toggle');
+const seek = document.getElementById('seek');
+const fill = document.getElementById('fill');
+const current = document.getElementById('current');
+const duration = document.getElementById('duration');
+
+const playIcon = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+const pauseIcon = '<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+
+enterScreen.addEventListener('click', () => {
+ enterScreen.style.opacity = '0';
+ setTimeout(() => { enterScreen.style.display = 'none'; }, 400);
+ 
+ // Kích hoạt phát nhạc m4a
+ audio.play().then(() => {
+  toggle.innerHTML = pauseIcon;
+ }).catch(err => console.log("Autoplay blocked:", err));
+});
+
+// Định dạng thời gian nhạc
+function stamp(seconds) {
+ let m = Math.floor(seconds / 60);
+ let s = Math.floor(seconds % 60);
+ return m + ':' + String(s).padStart(2, '0');
+}
+
+audio.addEventListener('loadedmetadata', () => {
+ duration.textContent = stamp(audio.duration);
+});
+
+audio.addEventListener('timeupdate', () => {
+ if (audio.duration) {
+  current.textContent = stamp(audio.currentTime);
+  fill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+ }
+});
+
+audio.addEventListener('ended', () => {
+ toggle.innerHTML = playIcon;
+ fill.style.width = '0%';
+});
+
+// Nút Play / Pause
+toggle.addEventListener('click', (e) => { 
+ e.stopPropagation();
+ if (audio.paused) {
+  audio.play();
+  toggle.innerHTML = pauseIcon;
+ } else {
+  audio.pause();
+  toggle.innerHTML = playIcon;
+ }
+});
+
+// Thanh tua nhạc (Progress bar)
+seek.addEventListener('click', e => {
+ e.stopPropagation();
+ if (!audio.duration) return;
+ const r = seek.getBoundingClientRect();
+ const clickPos = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+ audio.currentTime = clickPos * audio.duration;
+});
+
+// Nút tua lùi 10s
+document.getElementById('back').addEventListener('click', (e) => {
+ e.stopPropagation();
+ audio.currentTime = Math.max(0, audio.currentTime - 10);
+});
+
+// Nút tua tới 10s
+document.getElementById('forward').addEventListener('click', (e) => {
+ e.stopPropagation();
+ audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
+});
+
+// --- BỘ ĐẾM VIEW & TIM ---
+async function fetchAbacus(action, key) {
+ try {
+  const res = await fetch(`https://abacus.jasoncameron.dev/${action}/dxcstore_github_io/${key}`, { cache: "no-store" });
+  if (!res.ok) throw new Error("Network error");
+  const data = await res.json();
+  return data.value;
+ } catch (e) {
+  return null;
+ }
+}
+
+window.addEventListener('DOMContentLoaded', async () => {
+ const viewEl = document.getElementById('view-count');
+ const likeEl = document.getElementById('like-count');
+ const likeBtn = document.getElementById('like-btn');
+
+ const views = await fetchAbacus("hit", "views");
+ viewEl.textContent = views !== null ? views : "0";
+
+ const likes = await fetchAbacus("get", "likes");
+ likeEl.textContent = likes !== null ? likes : "0";
+
+ if (localStorage.getItem("dxc_liked_v2") === "1") {
+  likeBtn.classList.add("liked");
+ }
+
+ likeBtn.addEventListener('click', async () => {
+  if (localStorage.getItem("dxc_liked_v2") === "1") return;
+  localStorage.setItem("dxc_liked_v2", "1");
+  likeBtn.classList.add("liked");
+
+  const currentLikes = parseInt(likeEl.textContent, 10) || 0;
+  likeEl.textContent = currentLikes + 1;
+
+  const updatedLikes = await fetchAbacus("hit", "likes");
+  if (updatedLikes !== null) {
+   likeEl.textContent = updatedLikes;
+  }
+ });
+});
+</script>
+</body>
+</html>
